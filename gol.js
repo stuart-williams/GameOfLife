@@ -97,11 +97,18 @@
         init: function () {
             console.log('Initializing...');
             this.createWorld();
-            this.start();
         }
 
     };
 
-    window.addEventListener('DOMContentLoaded', GOL.init.bind(GOL));
+    if (typeof exports !== 'undefined') {
+        if (typeof module !== 'undefined' && module.exports) {
+            exports = module.exports = GOL;
+        }
+        exports.GOL = GOL;
+    } else {
+        window.GOL = GOL;
+        window.addEventListener('DOMContentLoaded', GOL.init.bind(GOL));
+    }
 
 }());

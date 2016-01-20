@@ -1,0 +1,22 @@
+{
+  "name": "gol",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gol.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine-node --verbose spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stuwilliams47/GameOfLife.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stuwilliams47/GameOfLife/issues"
+  },
+  "homepage": "https://github.com/stuwilliams47/GameOfLife#readme",
+  "dependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}
