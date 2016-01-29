@@ -15,7 +15,7 @@ describe('Game of Life', function () {
             [0, 0, 0]
         ];
 
-        it('should produce a new world equal to newWorld', function () {
+        it('should produce a correct new world', function () {
             expect(evolve(world)).toEqual(newWorld);
         });
     });
@@ -43,17 +43,23 @@ describe('Game of Life', function () {
     describe('getNextCellState', function () {
         var getNextCellState = require('../gol').getNextCellState;
 
-        it('should get the number of live neighbours for a particular cell', function () {
-            expect(getNextCellState(1, 0)).toBe(0);
-            expect(getNextCellState(1, 1)).toBe(0);
-            expect(getNextCellState(1, 2)).toBe(1);
-            expect(getNextCellState(1, 3)).toBe(1);
-            expect(getNextCellState(1, 4)).toBe(0);
-            expect(getNextCellState(0, 0)).toBe(0);
-            expect(getNextCellState(0, 1)).toBe(0);
-            expect(getNextCellState(0, 2)).toBe(0);
-            expect(getNextCellState(0, 3)).toBe(1);
-            expect(getNextCellState(0, 4)).toBe(0);
+        var data = [{
+            isAlive: 1, numberOfLiveNeighbours: 0, expect: 0,
+            isAlive: 1, numberOfLiveNeighbours: 1, expect: 0,
+            isAlive: 1, numberOfLiveNeighbours: 2, expect: 1,
+            isAlive: 1, numberOfLiveNeighbours: 3, expect: 1,
+            isAlive: 1, numberOfLiveNeighbours: 4, expect: 0,
+            isAlive: 0, numberOfLiveNeighbours: 0, expect: 0,
+            isAlive: 0, numberOfLiveNeighbours: 1, expect: 0,
+            isAlive: 0, numberOfLiveNeighbours: 2, expect: 0,
+            isAlive: 0, numberOfLiveNeighbours: 3, expect: 1,
+            isAlive: 0, numberOfLiveNeighbours: 4, expect: 0
+        }];
+
+        it('should get the next cell state given the current cell state and its number of live neighbours', function () {
+            data.forEach(function (o) {
+                expect(getNextCellState(o.isAlive, o.numberOfLiveNeighbours)).toBe(o.expect);
+            });
         });
     });
 
