@@ -1,26 +1,60 @@
-var GOL = require('../gol');
-
 describe('Game of Life', function () {
 
-    describe('the createWorld function', function () {
-        var i = 0;
-        var inputs = [2, 10, 100];
-        var outputs = [4, 100, 10000];
+    describe('evolve', function () {
+        var evolve = require('../gol').evolve;
 
-        beforeEach(function (done) {
-            GOL.worldSize = inputs[i++];
-            GOL.createWorld();
-            done();
+        var world = [
+            [0, 0, 0],
+            [0, 1, 0],
+            [0, 0, 0]
+        ];
+
+        var newWorld = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ];
+
+        it('should produce a new world equal to newWorld', function () {
+            expect(evolve(world)).toEqual(newWorld);
         });
+    });
 
-        function runTest(item, i) {
-            it('with a worldSize of ' + inputs[i] + ' creates a world of size ' + outputs[i], function (done) {
-                expect(Object.keys(GOL.world).length).toEqual(outputs[i]);
-                done();
-            });
-        }
+    describe('getNumberOfLiveNeighbours', function () {
+        var getNumberOfLiveNeighbours = require('../gol').getNumberOfLiveNeighbours;
 
-        inputs.forEach(runTest);
+        var world = [
+            [0, 0, 0],
+            [0, 1, 0],
+            [0, 0, 0]
+        ];
+
+        var newWorld = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ];
+
+        it('should get the number of live neighbours for a particular cell', function () {
+            expect(getNumberOfLiveNeighbours(world, 0, 0)).toBe(1);
+        });
+    });
+
+    describe('getNextCellState', function () {
+        var getNextCellState = require('../gol').getNextCellState;
+
+        it('should get the number of live neighbours for a particular cell', function () {
+            expect(getNextCellState(1, 0)).toBe(0);
+            expect(getNextCellState(1, 1)).toBe(0);
+            expect(getNextCellState(1, 2)).toBe(1);
+            expect(getNextCellState(1, 3)).toBe(1);
+            expect(getNextCellState(1, 4)).toBe(0);
+            expect(getNextCellState(0, 0)).toBe(0);
+            expect(getNextCellState(0, 1)).toBe(0);
+            expect(getNextCellState(0, 2)).toBe(0);
+            expect(getNextCellState(0, 3)).toBe(1);
+            expect(getNextCellState(0, 4)).toBe(0);
+        });
     });
 
 });
