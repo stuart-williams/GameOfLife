@@ -12,8 +12,7 @@ function countLiveNeighbours (world, x, y) {
 
 function evolve (world) {
   return world.map((row, x) => {
-    const newRow = row.map((cell, y) => evolveCell(cell, countLiveNeighbours(world, x, y)))
-    return newRow
+    return row.map((cell, y) => evolveCell(cell, countLiveNeighbours(world, x, y)))
   })
 }
 

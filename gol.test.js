@@ -17,6 +17,11 @@ describe(`Glider ${prettify([[1, 0, 0], [0, 1, 1], [1, 1, 0]])}`, () => {
       [1, 0, 1],
       [0, 1, 1],
       [0, 1, 0]
+    ],
+    [
+      [1, 0, 0],
+      [0, 1, 1],
+      [1, 1, 0]
     ]
   ]
 
@@ -26,5 +31,9 @@ describe(`Glider ${prettify([[1, 0, 0], [0, 1, 1], [1, 1, 0]])}`, () => {
 
   it('Glider 2', () => {
     expect(prettify(getGeneration(cells[0], 2))).toEqual(prettify(cells[2]))
+  })
+
+  it('Glider 3', () => {
+    expect(prettify(getGeneration(cells[0], 3))).toEqual(prettify(cells[3]))
   })
 })
