@@ -1,29 +1,24 @@
-'use strict';
+const evolveCell = (isAlive, liveNeighbours) =>
+  (isAlive && liveNeighbours === 2) || liveNeighbours === 3 ? 1 : 0
 
-function getNextCellState(isAlive, numberOfLiveNeighbours) {
-    return (isAlive && numberOfLiveNeighbours === 2) || numberOfLiveNeighbours === 3 ? 1 : 0;
+function countLiveNeighbours (world, x, y) {
+  const neighbours = [
+    [x + 1, y - 1], [x + 1, y], [x + 1, y + 1], [x, y + 1],
+    [x - 1, y + 1], [x - 1, y], [x - 1, y - 1], [x, y - 1]
+  ]
+  return neighbours.reduce((count, [ x, y ]) =>
+    count + (world[x] && world[x][y]) || count, 0)
 }
 
-function getNumberOfLiveNeighbours(world, x, y) {
-    var neighbours = [
-        [x+1, y-1], [x+1, y], [x+1, y+1], [x, y+1],
-        [x-1, y+1], [x-1, y], [x-1, y-1], [x, y-1]
-    ];
-    return neighbours.reduce(function (count, n) {
-        return count += world[n[0]] && world[n[0]][n[1]] || 0;
-    }, 0);
+function evolve (world) {
+  return world.map((row, x) => {
+    const newRow = row.map((cell, y) => evolveCell(cell, countLiveNeighbours(world, x, y)))
+    return newRow
+  })
 }
 
-function evolve(world) {
-    return world.map(function (line, x) {
-        return line.map(function (cellState, y) {
-            return getNextCellState(cellState, getNumberOfLiveNeighbours(world, x, y));
-        });
-    });
+function getGeneration (cells, generations) {
+  return Array(generations).fill(0).reduce(evolve, cells)
 }
 
-module.exports = {
-    evolve: evolve,
-    getNumberOfLiveNeighbours: getNumberOfLiveNeighbours,
-    getNextCellState: getNextCellState
-};
+module.exports = getGeneration

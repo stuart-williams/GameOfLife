@@ -1,22 +1,29 @@
 {
-  "name": "gol",
+  "name": "GameOfLife",
   "version": "1.0.0",
-  "description": "",
-  "main": "gol.js",
+  "description": "Conway's Game of Life",
+  "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jasmine-node --verbose spec"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stuwilliams47/GameOfLife.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Stuart Williams",
   "bugs": {
     "url": "https://github.com/stuwilliams47/GameOfLife/issues"
   },
   "homepage": "https://github.com/stuwilliams47/GameOfLife#readme",
   "dependencies": {
-    "jasmine-node": "^1.14.5"
+    "eslint": "^4.7.2",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "devDependencies": {
+    "jest": "^21.1.0"
   }
 }
