@@ -1,7 +1,7 @@
 const prettify = require('./helpers/prettify')
 const getGeneration = require('./gol')
 
-describe(`Glider ${prettify([[1, 0, 0], [0, 1, 1], [1, 1, 0]])}`, () => {
+describe('Glider', () => {
   const cells = [
     [
       [1, 0, 0],
@@ -19,21 +19,43 @@ describe(`Glider ${prettify([[1, 0, 0], [0, 1, 1], [1, 1, 0]])}`, () => {
       [0, 1, 0]
     ],
     [
+      [0, 0, 1],
+      [1, 0, 1],
+      [0, 1, 1]
+    ],
+    [
       [1, 0, 0],
       [0, 1, 1],
       [1, 1, 0]
     ]
   ]
 
+  console.log(prettify(getGeneration(cells[0], 0)))
+  console.log(prettify(cells[0]))
+
   it('Glider 1', () => {
+    console.log(prettify(getGeneration(cells[0], 1)))
+    console.log(prettify(cells[1]))
+
     expect(prettify(getGeneration(cells[0], 1))).toEqual(prettify(cells[1]))
   })
 
   it('Glider 2', () => {
+    console.log(prettify(getGeneration(cells[0], 2)))
+    console.log(prettify(cells[2]))
+
     expect(prettify(getGeneration(cells[0], 2))).toEqual(prettify(cells[2]))
   })
 
   it('Glider 3', () => {
+    console.log(prettify(getGeneration(cells[0], 3)))
+    console.log(prettify(cells[3]))
+
     expect(prettify(getGeneration(cells[0], 3))).toEqual(prettify(cells[3]))
+  })
+
+  it('Glider 4', () => {
+    console.log(prettify(getGeneration(cells[0], 4)))
+    expect(prettify(getGeneration(cells[0], 4))).toEqual(prettify(cells[4]))
   })
 })
