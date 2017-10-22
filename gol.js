@@ -11,8 +11,13 @@ function countLiveNeighbours (cells, x, y) {
 }
 
 function trim (cells) {
+  const end = cells.length - 1
+
   return cells.reduce((accum, row) => {
-    return row.some(Boolean) ? [ ...accum, row ] : accum
+    if (!cells.map((row) => row[0]).includes(1)) row = row.slice(1)
+    if (!cells.map((row) => row[end]).includes(1)) row = row.slice(0, -1)
+
+    return row.includes(1) ? [ ...accum, row ] : accum
   }, [])
 }
 
