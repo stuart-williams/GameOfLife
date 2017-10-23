@@ -10,22 +10,32 @@ function countLiveNeighbours (cells, x, y) {
     count + (cells[x] && cells[x][y]) || count, 0)
 }
 
+const colHasLiveCells = (cells, n) => cells.map((row) => row[n]).includes(1)
+
 function trim (cells) {
-  const end = cells.length - 1
+  const cellsEnd = cells.length - 1
+  const rowEnd = cells[0].length - 1
 
-  return cells.reduce((accum, row) => {
-    if (!cells.map((row) => row[0]).includes(1)) row = row.slice(1)
-    if (!cells.map((row) => row[end]).includes(1)) row = row.slice(0, -1)
-
-    return row.includes(1) ? [ ...accum, row ] : accum
+  const newCells = cells.reduce((accum, row, i) => {
+    if (!colHasLiveCells(cells, 0)) row = row.slice(1)
+    if (!colHasLiveCells(cells, rowEnd)) row = row.slice(0, -1)
+    if ((i === 0 || i === cellsEnd) && !row.includes(1)) return accum
+    return [ ...accum, row ]
   }, [])
+
+  if (!colHasLiveCells(newCells, 0) || !colHasLiveCells(newCells, newCells[0].length - 1) || !newCells[0].includes(1) || !newCells[newCells.length - 1].includes(1)) {
+    return trim(newCells)
+  }
+
+  return newCells
 }
 
 function evolve (cells) {
-  const xCells = [ ...cells.map((row) => [ ...row, 0 ]), [ 0, 0, 0, 0 ] ]
+  const xRow = Array(cells[0].length + 2).fill(0)
+  const xCells = [ xRow, ...cells.map((row) => [ 0, ...row, 0 ]), xRow ]
 
   return trim(xCells.map((row, x) => row.map((cell, y) => {
-    const liveNeighbours = countLiveNeighbours(cells, x, y)
+    const liveNeighbours = countLiveNeighbours(xCells, x, y)
     return evolveCell(cell, liveNeighbours)
   })))
 }
