@@ -49,4 +49,4 @@ function getGeneration (cells, generations) {
   return Array(generations).fill(0).reduce(evolve, cells)
 }
 
-module.exports = getGeneration
+export default getGeneration

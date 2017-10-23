@@ -1,5 +1,5 @@
-const prettify = require('./helpers/prettify')
-const getGeneration = require('./gol')
+import prettify from './helpers/prettify'
+import getGeneration from './'
 
 describe('Glider', () => {
   const cells = [
